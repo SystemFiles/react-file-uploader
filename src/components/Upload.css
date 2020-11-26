@@ -1,0 +1,41 @@
+.Upload {
+	text-align: center;
+	padding: 50px 0;
+}
+
+.Upload h2 {
+	font-weight: 300;
+	font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-size: 22pt;
+}
+
+.Upload .Upload-Container {
+	border: 1px dashed grey;
+	border-radius: 10px;
+	width: 50%;
+	margin: 0 auto;
+	padding: 15px 0;
+}
+
+.Upload .Upload-Icon .svgIcon {
+	font-size: 36pt;
+	color: #2f80ec;
+	margin-bottom: 30px;
+}
+
+.Upload .Upload-Browse {
+	margin-top: 30px;
+}
+
+.Upload .Upload-Browse a {
+	padding: 10px 100px;
+	background-color: #2f80ec;
+	border-radius: 10px;
+	text-decoration: none;
+	color: #fff;
+	transition: all 400ms;
+}
+
+.Upload .Upload-Browse a:hover {
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
