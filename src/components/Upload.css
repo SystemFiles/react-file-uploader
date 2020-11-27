@@ -1,3 +1,7 @@
+.Upload-Component {
+	text-align: center;
+}
+
 .Upload {
 	text-align: center;
 	padding: 50px 0;
@@ -12,7 +16,7 @@
 .Upload .Upload-Container {
 	border: 1px dashed grey;
 	border-radius: 10px;
-	width: 50%;
+	width: 70%;
 	margin: 0 auto;
 	padding: 15px 0;
 }
@@ -38,4 +42,13 @@
 
 .Upload .Upload-Browse a:hover {
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.Upload-List {
+	background-color: rgba(190, 190, 190, 0.2);
+	border-radius: 10px;
+	padding: 30px 15px;
+	text-align: center;
+	max-height: 500px;
+	overflow: hidden;
 }

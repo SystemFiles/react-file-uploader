@@ -1,0 +1,21 @@
+.UploadItem {
+	margin: 10px 0;
+	background: #fff;
+	padding: 20px 0;
+	border-radius: 10px;
+}
+
+.UploadItem .UploadItem-Name {
+	text-align: left;
+	margin-right: 15px;
+	font-weight: 300;
+	font-size: 10pt;
+}
+
+.UploadItem .UploadItem-Size {
+	margin-left: 15px;
+	text-align: right;
+	color: #2f80ec;
+	font-weight: 200;
+	font-size: 9pt;
+}
