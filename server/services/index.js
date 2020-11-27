@@ -1,5 +1,6 @@
 const fs = require('fs-extra')
 const { DEFAULT_DIR } = require('../config')
+const { archiveDirectory } = require('../utils')
 
 // services
 const uploadToCloudStorage = async (id, files) => {
@@ -43,8 +44,24 @@ const uploadToCloudStorage = async (id, files) => {
 	}
 }
 
-const getZippedFilesFromStorage = async (id) => {}
+const getZippedFilesFromStorage = async (id) => {
+	let zippedRes = await archiveDirectory(id)
+
+	if (zippedRes.success) {
+		return {
+			success : true,
+			message : 'Success!',
+			path    : zippedRes.zipPath
+		}
+	} else {
+		return {
+			success : false,
+			message : `Failed to get files from storage for download. Reason: ${zippedRes.message}`
+		}
+	}
+}
 
 module.exports = {
-	uploadToCloudStorage
+	uploadToCloudStorage,
+	getZippedFilesFromStorage
 }

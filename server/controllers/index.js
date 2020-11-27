@@ -32,6 +32,15 @@ const downloadFiles = async (req, res) => {
 
 	// Get zipped file and send to requester
 	let result = await getZippedFilesFromStorage(id)
+	if (result.success) {
+		res.status(200).sendFile(result.path, (err) => {
+			console.log(`Failed sending file to client. Reason: ${err}`)
+		})
+	} else {
+		res.status(500).send({
+			message : result.message
+		})
+	}
 }
 
 module.exports = {
