@@ -16,7 +16,6 @@ const uploadToCloudStorage = async (id, files) => {
 	// Move all files to created directory
 	try {
 		for await (const file of files) {
-			console.log(`Moving file ${file.filename}`)
 			await fs.move(
 				`${DEFAULT_DIR}/${file.filename}`,
 				`${DEFAULT_DIR}/${id}/${file.filename}`,
@@ -32,6 +31,7 @@ const uploadToCloudStorage = async (id, files) => {
 			)
 		}
 
+		console.log(`Successfully uploaded files with ID: ${id}`)
 		return {
 			success : true,
 			message : 'Files successfully uploaded to proper location.'
