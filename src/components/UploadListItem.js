@@ -8,8 +8,14 @@ import { Grid } from '@material-ui/core'
 function UploadListItem(props) {
     const { name, size } = props.file
     const format = name.trim().substring(name.length - 4, name.length)
+
+    const handleDelete = (e) => {
+        e.preventDefault()
+        props.onClick(name)
+    }
+
     return (
-        <div className="UploadItem">
+        <div className="UploadItem" onClick={handleDelete}>
             <Grid item xs={12} container justify="center" alignContent="center" alignItems="center">
                 <Grid item container xs={8}>
                     <Grid item xs={11}>

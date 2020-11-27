@@ -45,6 +45,19 @@ function Upload() {
         }
     }
 
+    const deleteSelectedFile = (fileName) => {
+        state.selectedFiles.filter(file => file.name.includes(fileName)).map((filteredFile => {
+            let arr = state.selectedFiles
+            let index = arr.indexOf(filteredFile)
+            if (index !== -1) {
+                arr.splice(index, 1);
+                setState({
+                    selectedFiles: arr
+                })
+            }
+        }))
+    }
+
     return (
         <Grid item container justify="flex-start" alignContent="flex-start" className="Upload-Component">
         <Grid item xs={12} sm={7} className="Upload">
@@ -75,7 +88,7 @@ function Upload() {
         <Grid item xs={12} sm={5} className="Upload-List">
             <div className="Upload-List-Container">
                 { state.selectedFiles.map((file) => (
-                    <UploadListItem key={uuid()} file={file} /> 
+                    <UploadListItem key={uuid()} file={file} onClick={deleteSelectedFile} /> 
                 ))}
             </div>
         </Grid>
