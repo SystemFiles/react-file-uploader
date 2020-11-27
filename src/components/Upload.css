@@ -52,3 +52,40 @@
 	max-height: 500px;
 	overflow: hidden;
 }
+
+.Upload-Component .Upload-Submit-Container button {
+	margin-top: 20px;
+	color: #fff;
+	text-decoration: none;
+	width: 100%;
+	height: 60px;
+	background: #2f80ec;
+	border-radius: 10px;
+	border: none;
+	transition: all 400ms;
+	font-size: 16pt;
+	font-weight: 400;
+	font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.Upload-Component .Upload-Submit-Container button:hover {
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.Upload-Component .Upload-Submit-Container button:active {
+	border: none;
+	box-shadow: none;
+}
+
+.Upload-Component .Upload-Submit-Container button .fabProgress {
+	color: white;
+	z-index: 1;
+	transition: all 400ms;
+}
+
+.Upload-Component .Upload-Submit-Container button .successCheck {
+	color: white;
+	z-index: 1;
+	transition: all 400ms;
+}
