@@ -11,4 +11,12 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: {}
+rules: {
+  key-spacing: 0,
+  indent: 0,
+  no-tabs: 0,
+  array-callback-return: 0,
+  prefer-const: 0,
+  multiline-ternary: 0,
+  array-bracket-spacing : 0,
+}

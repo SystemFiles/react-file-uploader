@@ -53,6 +53,18 @@
 	overflow: hidden;
 }
 
+.Upload-List .Upload-List-Container h2 {
+	color: rgba(0, 0, 0, 0.4);
+	font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-weight: 300;
+	text-align: center;
+}
+
+.Upload-List .Upload-List-Container .NoFilesIcon {
+	color: rgba(0, 0, 0, 0.4);
+	font-size: 16pt;
+}
+
 .Upload-Component .Upload-Submit-Container button {
 	margin-top: 20px;
 	color: #fff;
@@ -88,4 +100,21 @@
 	color: white;
 	z-index: 1;
 	transition: all 400ms;
+}
+
+.Upload-Component .Upload-Submit-Container button .errorIcon {
+	color: white;
+	z-index: 1;
+	transition: all 400ms;
+}
+
+@media only screen and (max-width: 600px) {
+	.Upload {
+		padding: 30px 0;
+	}
+
+	.Upload-List {
+		max-height: 200px;
+		overflow: scroll;
+	}
 }

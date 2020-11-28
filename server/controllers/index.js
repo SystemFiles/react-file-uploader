@@ -8,6 +8,8 @@ const uploadFiles = async (req, res) => {
 	const files = req.files
 	const id = v4()
 
+	console.log(files)
+
 	try {
 		// Perform upload operation with service
 		let result = await uploadToCloudStorage(id, files)

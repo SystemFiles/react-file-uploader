@@ -5,33 +5,38 @@ import PropTypes from 'prop-types'
 import './UploadListItem.css'
 import { Grid } from '@material-ui/core'
 
-function UploadListItem(props) {
-    const { name, size } = props.file
-    const format = name.trim().substring(name.length - 4, name.length)
+function UploadListItem (props) {
+	const { name, size } = props.file
+	const format = name.trim().substring(name.length - 4, name.length)
 
-    const handleDelete = (e) => {
-        e.preventDefault()
-        props.onClick(name)
-    }
+	const handleDelete = (e) => {
+		e.preventDefault()
+		props.onClick(name)
+	}
 
-    return (
-        <div className="UploadItem" onClick={handleDelete}>
-            <Grid item xs={12} container justify="center" alignContent="center" alignItems="center">
-                <Grid item container xs={8}>
-                    <Grid item xs={11}>
-                    <span style={{ float: 'left' }} className="UploadItem-Name">
-                        {name.trim().substring(0, 16)} {name.length > 16 ? '... ' + format : null}
-                    </span>
-                    </Grid>
-                    <Grid item xs={1}>
-                    <span style={{ float: 'left' }} className="UploadItem-Size">
-                        {Math.round(size / 1024 / 1024) + 1}mb
-                    </span>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </div>
-    )
+	return (
+		<div className='UploadItem' onClick={handleDelete}>
+			<Grid item xs={12} container justify='center' alignContent='center' alignItems='center'>
+				<Grid item container xs={8}>
+					<Grid item xs={11}>
+						<span style={{ float: 'left' }} className='UploadItem-Name'>
+							{name.trim().substring(0, 16)} {name.length > 16 ? '... ' + format : null}
+						</span>
+					</Grid>
+					<Grid item xs={1}>
+						<span style={{ float: 'left' }} className='UploadItem-Size'>
+							{Math.round(size / 1024 / 1024) + 1}mb
+						</span>
+					</Grid>
+				</Grid>
+			</Grid>
+		</div>
+	)
+}
+
+UploadListItem.propTypes = {
+	file    : PropTypes.object,
+	onClick : PropTypes.func
 }
 
 export default UploadListItem
