@@ -45,18 +45,34 @@ const uploadToCloudStorage = async (id, files) => {
 }
 
 const getZippedFilesFromStorage = async (id) => {
-	let zippedRes = await archiveDirectory(id)
+	try {
+		let filesExist = await fs.pathExists(`${DEFAULT_DIR}/${id}`)
+		if (filesExist) {
+			let zippedRes = await archiveDirectory(id)
 
-	if (zippedRes.success) {
-		return {
-			success : true,
-			message : 'Success!',
-			path    : zippedRes.zipPath
+			if (zippedRes.success) {
+				return {
+					success : true,
+					message : 'Success!',
+					path    : zippedRes.zipPath
+				}
+			} else {
+				return {
+					success : false,
+					message : `Failed to get files from storage for download. Reason: ${zippedRes.message}`
+				}
+			}
+		} else {
+			return {
+				success : false,
+				message : `Files not found on server with that ID (${id})`
+			}
 		}
-	} else {
+	} catch (err) {
+		console.log(`There was an error in GetZippedFilesFromStorage. Reason: ${err}`)
 		return {
 			success : false,
-			message : `Failed to get files from storage for download. Reason: ${zippedRes.message}`
+			message : `Failed to get files from storage for download. Reason: ${err}`
 		}
 	}
 }
