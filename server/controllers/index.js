@@ -41,7 +41,6 @@ const downloadFiles = async (req, res) => {
 		let result = await getZippedFilesFromStorage(id)
 		if (result.success) {
 			console.log(`Sent file with ID: ${id}, successfully!`)
-			console.log(`Sending file: ${result.path}`)
 			res.status(200).sendFile(result.path)
 
 			// Delete the file after sending

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Collapse, Grid } from '@material-ui/core'
 import Upload from './components/Upload'
 import Alert from '@material-ui/lab/Alert'
 import IconButton from '@material-ui/core/IconButton'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
 import CloseIcon from '@material-ui/icons/Close'
 import { FILES_ENDPOINT } from './config'
 import axios from 'axios'
@@ -15,8 +16,20 @@ export default function App () {
 		uploading     : false,
 		doneUploading : false,
 		error         : false,
-		errorMessage  : ''
+		errorMessage  : '',
+		showDetails   : false,
+		shareLink     : ''
 	})
+
+	const [ linkCopied, setlinkCopied ] = useState(false)
+
+	const shareLinkFieldRef = useRef(null)
+	const handleCopyLink = (e) => {
+		console.log(shareLinkFieldRef.current.childNodes[0].data)
+		navigator.clipboard.writeText(shareLinkFieldRef.current.childNodes[0].data)
+
+		setlinkCopied(true)
+	}
 
 	const uploadFilesToServer = async (files) => {
 		setState({ uploading: true })
@@ -38,9 +51,19 @@ export default function App () {
 			})
 
 			if (result.status === 200) {
-				setState({ uploading: false, doneUploading: true })
+				setState({
+					uploading     : false,
+					doneUploading : true,
+					showDetails   : true,
+					error         : false,
+					shareLink     : `${FILES_ENDPOINT}/${result.data.id}`
+				})
 				setTimeout(() => {
-					setState({ doneUploading: false })
+					setState({
+						doneUploading : false,
+						showDetails   : true,
+						shareLink     : `${FILES_ENDPOINT}/${result.data.id}`
+					})
 				}, 2000)
 			}
 		} catch (err) {
@@ -58,7 +81,7 @@ export default function App () {
 		<div className='container'>
 			<Grid container spacing={0} justify='center' alignItems='center' alignContent='center'>
 				<Grid className='titleContainer' item xs={10}>
-					<h2>Simple File Share</h2>
+					<h2>File Uploader</h2>
 				</Grid>
 				<Grid className='uploadContainer' item xs={11} md={10} lg={8} xl={6}>
 					<Upload
@@ -69,8 +92,38 @@ export default function App () {
 					/>
 				</Grid>
 			</Grid>
+			<Grid
+				className='uploadDetails'
+				container
+				spacing={0}
+				justify='center'
+				alignItems='center'
+				alignContent='center'>
+				<Grid item xs={11} md={10} lg={8} xl={6}>
+					<Collapse in={state.showDetails}>
+						<div className='uploadDetails-container'>
+							<h2>Upload Complete</h2>
+							<p>Use the following link to share and download your files</p>
+							<Grid container>
+								<Grid item xs={12}>
+									<pre onClick={handleCopyLink} ref={shareLinkFieldRef}>
+										{state.shareLink}
+										<FileCopyIcon className='linkCopyIcon' />
+									</pre>
+								</Grid>
+								<p>
+									<span>
+										** TIP: Click on the link field or copy icon to copy the link to your clipboard.
+										**
+									</span>
+								</p>
+							</Grid>
+						</div>
+					</Collapse>
+				</Grid>
+			</Grid>
 			<Grid className='toast' container spacing={0} justify='center' alignItems='center' alignContent='center'>
-				<Collapse in={state.error}>
+				<Collapse in={state.error || linkCopied}>
 					<Alert
 						action={
 							<IconButton
@@ -79,13 +132,14 @@ export default function App () {
 								size='small'
 								onClick={() => {
 									setState({ error: false })
+									setlinkCopied(false)
 								}}>
 								<CloseIcon fontSize='inherit' />
 							</IconButton>
 						}
 						variant='filled'
-						severity='error'>
-						{state.errorMessage}
+						severity={!linkCopied ? 'error' : 'success'}>
+						{!linkCopied ? state.errorMessage : 'Link copied to your clipboard!'}
 					</Alert>
 				</Collapse>
 			</Grid>

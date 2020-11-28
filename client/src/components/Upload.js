@@ -49,6 +49,7 @@ function Upload (props) {
 			alert('Must select at least one file to upload!')
 		} else {
 			props.onUpload(state.selectedFiles)
+			setState({ selectedFiles: [] })
 		}
 	}
 
