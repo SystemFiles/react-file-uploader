@@ -1,0 +1,82 @@
+name: Build and Push Docker
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  build-push-client:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Get Client Package version
+        id: client_package
+        uses: gregoranders/nodejs-project-info@v0.0.11
+        with:
+          path: ./client/package.json
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Get Clients Nearest Major Version
+        id: client_major_version
+        uses: JungWinter/split@v1.1.0
+        with:
+          msg: ${{ steps.client_package.outputs.version }}
+          seperator: '.'
+      - name: Build and push client
+        id: client_build
+        uses: docker/build-push-action@v2.0.1
+        with:
+          push: true
+          context: ./client/
+          file: ./client/Dockerfile
+          tags: |
+            ${{ secrets.DOCKER_ID }}/file-uploader-client:${{ steps.client_package.outputs.version }}
+            ${{ secrets.DOCKER_ID }}/file-uploader-client:${{ steps.client_major_version.outputs._0 }}
+            ${{ secrets.DOCKER_ID }}/file-uploader-client:latest
+      - name: Client Image digest
+        run: echo ${{ steps.client_build.outputs.digest }}
+  build-push-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Get Server Package version
+        id: server_package
+        uses: gregoranders/nodejs-project-info@v0.0.11
+        with:
+          path: ./server/package.json
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Get Servers Nearest Major Version
+        id: server_major_version
+        uses: JungWinter/split@v1.1.0
+        with:
+          msg: ${{ steps.server_package.outputs.version }}
+          seperator: '.'
+      - name: Build and push server
+        id: server_build
+        uses: docker/build-push-action@v2.0.1
+        with:
+          push: true
+          context: ./server/
+          file: ./server/Dockerfile
+          tags: |
+            ${{ secrets.DOCKER_ID }}/file-uploader-api:${{ steps.server_package.outputs.version }}
+            ${{ secrets.DOCKER_ID }}/file-uploader-api:${{ steps.server_major_version.outputs._0 }}
+            ${{ secrets.DOCKER_ID }}/file-uploader-api:latest
+      - name: Server Image digest
+        run: echo ${{ steps.server_build.outputs.digest }}

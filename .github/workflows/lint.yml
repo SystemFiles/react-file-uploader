@@ -1,0 +1,37 @@
+name: Lint Node
+
+on: push
+
+jobs:
+  lint-client:
+    name: Lint Client
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '15'
+      - name: Install required dependencies and Lint
+        working-directory: "./client/"
+        run: |
+          npm install --only=dev
+          npm install lodash
+          npm run lint
+  lint-server:
+    name: Lint Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '15'
+      - name: Install required dependencies and Lint
+        working-directory: "./server/"
+        run: |
+          npm install --only=dev
+          npm install lodash
+          npm run lint

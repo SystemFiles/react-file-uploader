@@ -4,14 +4,11 @@ const { DEFAULT_DIR, MAX_SIZE_MB } = require('../config')
 
 // Create storage on device
 const storage = multer.diskStorage({
-	destination   : (req, file, cb) => {
+	destination : (req, file, cb) => {
 		cb(null, `${DEFAULT_DIR}/`)
 	},
-	filename      : (req, file, cb) => {
+	filename    : (req, file, cb) => {
 		cb(null, file.originalname)
-	},
-	onStartUpload : (file, req, res) => {
-		return false
 	}
 })
 
