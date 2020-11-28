@@ -25,7 +25,7 @@ export default function App () {
 
 	const shareLinkFieldRef = useRef(null)
 	const handleCopyLink = (e) => {
-		console.log(shareLinkFieldRef.current.childNodes[0].data)
+		console.log(`Copied to clipboard: ${shareLinkFieldRef.current.childNodes[0].data}`)
 		navigator.clipboard.writeText(shareLinkFieldRef.current.childNodes[0].data)
 
 		setlinkCopied(true)
@@ -67,12 +67,11 @@ export default function App () {
 				}, 2000)
 			}
 		} catch (err) {
-			console.log(`Error Occured when uploading file: ${err}`)
 			setState({
 				uploading     : false,
 				doneUploading : true,
 				error         : true,
-				errorMessage  : 'Failed to upload files. Reason: A file was too large!'
+				errorMessage  : `Failed to upload files. Reason: ${err}`
 			})
 		}
 	}
