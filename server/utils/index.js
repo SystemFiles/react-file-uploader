@@ -10,7 +10,7 @@ const archiveDirectory = async (id) => {
 
 	try {
 		archive.directory(`${DEFAULT_DIR}/${id}`, false)
-		await archive.finalize
+		await archive.finalize()
 
 		console.log(`Archive completed for ID: ${id}`)
 		return {
