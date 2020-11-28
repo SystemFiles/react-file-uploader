@@ -7,27 +7,14 @@ services:
     volumes:
       - web-root:/var/www/html
       - ./nginx:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
     depends_on:
       - backend
       - frontend
     ports:
       - "80:80"
-      - "443:443"
     restart: unless-stopped
     networks:
       - site-network
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    depends_on:
-      - webserver
-    command: certonly --webroot --webroot-path=/var/www/html --email ben@sykesdev.ca --agree-tos --no-eff-email --staging --force-renewal -d uploader.sykesdev.ca
   backend:
     image: sykeben/file-uploader-api:latest
     environment:
@@ -48,8 +35,6 @@ services:
       - site-network
 
 volumes:
-  certbot-etc:
-  certbot-var:
   web-root:
     driver: local
 
