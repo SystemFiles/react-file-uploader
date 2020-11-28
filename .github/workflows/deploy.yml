@@ -1,6 +1,0 @@
-# name: npm-publish
-
-# on:
-#   push:
-#     tags:
-#       - 'release-v*'

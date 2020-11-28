@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  webserver:
+    container_name: webserver
+    image: nginx:mainline-alpine
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    networks:
+      - site-network
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    command: certonly --webroot --webroot-path=/var/www/html --email ben@sykesdev.ca --agree-tos --no-eff-email --staging --force-renewal -d uploader.sykesdev.ca
+  backend:
+    image: sykeben/file-uploader-api:latest
+    environment:
+      - DEFAULT_DIR=/files
+      - RANDOMIZE_FILENAMES=true
+      - SHARE_ENABLED=true
+    container_name: backend
+    volumes:
+      - /media/files:/files
+    restart: unless-stopped
+    networks:
+      - site-network
+  frontend:
+    image: sykeben/file-uploader-client:latest
+    container_name: frontend
+    restart: unless-stopped
+    networks:
+      - site-network
+
+volumes:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+
+networks:
+  site-network:
+    driver: bridge

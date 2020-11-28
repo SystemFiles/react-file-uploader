@@ -12,5 +12,10 @@ router.get('', (req, res) => {
 	res.status(200).send('You have reached the root API endpoint...')
 })
 router.post('/files', uploader.array('fileField', MAX_FILES), uploadFiles)
+router.post('/files', (req, res, next) => {
+	uploader.array('fileField', MAX_FILES)(req, res, (err) => {
+		res.status(500).send({ success: false, message: `Failed to upload file to server. Reason: ${err}` })
+	})
+})
 
 module.exports = router
