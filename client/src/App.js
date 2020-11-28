@@ -22,13 +22,25 @@ export default function App () {
 	})
 
 	const [ linkCopied, setlinkCopied ] = useState(false)
+	const [ clipboardCopyEnabled, setClipboardCopyEnabled ] = useState(true)
 
 	const shareLinkFieldRef = useRef(null)
 	const handleCopyLink = (e) => {
-		console.log(`Copied to clipboard: ${shareLinkFieldRef.current.childNodes[0].data}`)
-		navigator.clipboard.writeText(shareLinkFieldRef.current.childNodes[0].data)
+		if (window.isSecureContext) {
+			console.log(`Copied to clipboard: ${shareLinkFieldRef.current.childNodes[0].data}`)
+			navigator.clipboard.writeText(shareLinkFieldRef.current.childNodes[0].data)
 
-		setlinkCopied(true)
+			// Done copied link
+			setlinkCopied(true)
+		} else {
+			if (clipboardCopyEnabled) {
+				alert(
+					'Due to a short-term security issue, we do not have access to your clipboard. You will need to manually highlight and copy the share link for the time being. Thank you :)'
+				)
+				console.log('Currently unavailable')
+				setClipboardCopyEnabled(false)
+			}
+		}
 	}
 
 	const uploadFilesToServer = async (files) => {

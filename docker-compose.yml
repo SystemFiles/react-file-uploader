@@ -21,6 +21,7 @@ services:
       - DEFAULT_DIR=/files
       - RANDOMIZE_FILENAMES=true
       - SHARE_ENABLED=true
+      - MAX_SIZE_MB=2048
     container_name: backend
     volumes:
       - /media/files:/files
