@@ -1,22 +1,8 @@
 version: "3"
 
 services:
-  webserver:
-    container_name: webserver
-    image: nginx:mainline-alpine
-    volumes:
-      - web-root:/var/www/html
-      - ./nginx:/etc/nginx/conf.d
-    depends_on:
-      - backend
-      - frontend
-    ports:
-      - "80:80"
-    restart: unless-stopped
-    networks:
-      - site-network
   backend:
-    image: sykeben/file-uploader-api:latest
+    image: sykeben/file-uploader-api:1.x
     environment:
       - DEFAULT_DIR=/files
       - RANDOMIZE_FILENAMES=true
@@ -25,21 +11,20 @@ services:
       - CLEAN_ENABLED=true
     container_name: backend
     volumes:
-      - /media/files:/files
+      - file_storage:/files
     restart: unless-stopped
     networks:
-      - site-network
+      - docker-webserver-ssl_site-network
   frontend:
-    image: sykeben/file-uploader-client:latest
+    image: sykeben/file-uploader-client:1.x
     container_name: frontend
     restart: unless-stopped
     networks:
-      - site-network
+      - docker-webserver-ssl_site-network
 
 volumes:
-  web-root:
-    driver: local
+  file_storage:
 
 networks:
-  site-network:
-    driver: bridge
+  docker-webserver-ssl_site-network:
+    external: true
