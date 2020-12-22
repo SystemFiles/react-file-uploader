@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  backend:
+    image: sykeben/file-uploader-api:1.x
+    environment:
+      - DEFAULT_DIR=/files
+      - RANDOMIZE_FILENAMES=true
+      - SHARE_ENABLED=true
+      - MAX_SIZE_MB=2048
+      - CLEAN_ENABLED=true
+    container_name: backend
+    volumes:
+      - file_storage:/files
+    restart: unless-stopped
+    networks:
+      - docker-webserver-ssl_site-network
+  frontend:
+    image: sykeben/file-uploader-client:1.x
+    container_name: frontend
+    restart: unless-stopped
+    networks:
+      - docker-webserver-ssl_site-network
+
+volumes:
+  file_storage:
+
+networks:
+  docker-webserver-ssl_site-network:
+    external: true

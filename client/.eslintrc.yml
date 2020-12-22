@@ -1,0 +1,22 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - 'plugin:react/recommended'
+  - standard
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 12
+  sourceType: module
+plugins:
+  - react
+rules: {
+  key-spacing: 0,
+  indent: 0,
+  no-tabs: 0,
+  array-callback-return: 0,
+  prefer-const: 0,
+  multiline-ternary: 0,
+  array-bracket-spacing : 0,
+}
