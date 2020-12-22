@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  backend:
+  uploader-api:
     image: sykeben/file-uploader-api:1.x
     environment:
       - DEFAULT_DIR=/files
@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     networks:
       - docker-webserver-ssl_site-network
-  frontend:
+  uploader-client:
     image: sykeben/file-uploader-client:1.x
     container_name: uploader-frontend
     restart: unless-stopped
