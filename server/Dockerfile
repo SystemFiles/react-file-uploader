@@ -4,7 +4,7 @@ LABEL maintainer="Ben Sykes (SystemFiles)"
 
 # Setup environment
 RUN apk add --no-cache tini bind-tools
-RUN addgroup -g 10001 -S nonroot && adduser -u 10000 -S -G nonroot -h /home/nonroot nonroot
+RUN addgroup -g 10001 -S backenduser && adduser -u 10000 -S -G backenduser -h /home/backenduser backenduser
 
 
 # Install project dependencies
@@ -15,7 +15,11 @@ RUN npm install
 # Copy project files and setup server
 COPY . .
 
+# Fix folder permissions for file storage
+RUN mkdir -p /files && \
+    chown -R backenduser:backenduser /files
+
 EXPOSE 5000
 ENTRYPOINT ["/sbin/tini", "--", "node"]
-USER nonroot
+USER backenduser
 CMD ["server.js"]
