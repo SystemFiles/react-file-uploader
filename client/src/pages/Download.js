@@ -24,9 +24,11 @@ function Download () {
         FileDownload(res.data, `${id}.zip`)
       } else {
         setError(`Could not download file. Reason: ${res.data}`)
+        setDownloading(false)
       }
     } catch (e) {
       setError(`Failed to download file. Reason: ${e} (most likely we could not find the files...)`)
+      setDownloading(false)
     }
   }
 
@@ -35,10 +37,11 @@ function Download () {
 
   return (
     <div className='Download'>
-      <h1>Processing Files</h1>
+      <h1>{downloading ? 'Processing Files' : !error ? 'Done!' : 'Error'}</h1>
+      {!downloading && !error && <p>Your files have been processed, download is starting...</p>}
       {error && <p>{error}</p>}
       {downloading && !error && <DownloadProgress />}
-      {!error && downloading && <p>Don&apos;t worry this process can sometimes take a while...</p>}
+      {!error && downloading && <p style={{ textAlign: 'center' }}>Don&apos;t worry this process can sometimes take a while...</p>}
     </div>
   )
 }

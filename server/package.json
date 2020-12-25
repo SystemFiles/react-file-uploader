@@ -1,6 +1,6 @@
 {
 	"name": "file-uploader-api",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "API for interacting with file storage server",
 	"main": "server.js",
 	"scripts": {
