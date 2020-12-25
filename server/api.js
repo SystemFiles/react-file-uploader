@@ -12,8 +12,6 @@ api.use(cors())
 api.use(bodyParser.urlencoded({ extended: true }))
 api.use(bodyParser.json())
 
-// add api middleware
-
 // routes
 api.use('/api', routes)
 
