@@ -18,8 +18,6 @@ services:
     image: sykeben/file-uploader-api:1.x
     environment:
       - DEFAULT_DIR=/files
-      - RANDOMIZE_FILENAMES=true
-      - SHARE_ENABLED=true
       - MAX_SIZE_MB=2048
       - CLEAN_ENABLED=true
     container_name: uploader-backend

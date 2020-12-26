@@ -20,8 +20,6 @@ services:
       dockerfile: Dockerfile
     environment:
       - DEFAULT_DIR=/files
-      - RANDOMIZE_FILENAMES=true
-      - SHARE_ENABLED=true
       - MAX_SIZE_MB=2048
       - CLEAN_ENABLED=true
     container_name: uploader-backend
