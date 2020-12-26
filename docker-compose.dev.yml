@@ -15,7 +15,9 @@ services:
     networks:
       - uploader-network
   uploader-api:
-    image: sykeben/file-uploader-api:1.x
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
     environment:
       - DEFAULT_DIR=/files
       - MAX_SIZE_MB=2048
@@ -27,7 +29,9 @@ services:
     networks:
       - uploader-network
   uploader-client:
-    image: sykeben/file-uploader-client:1.x
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
     container_name: uploader-frontend
     restart: unless-stopped
     networks:
