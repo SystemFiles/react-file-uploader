@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=400px height=300px src="/.github/docs/media/logo.png" alt="Logo"></a>
+ <img width=400px height=200px src="/.github/docs/media/logo.png" alt="Logo"></a>
 </p>
 
 <h3 align="center">Fullstack File Uploader</h3>
