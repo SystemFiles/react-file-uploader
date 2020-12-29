@@ -35,7 +35,7 @@
 
 <p align="center">
   <a href="" rel="noopener">
- <img width=600px height=473px src="/.github/docs/media/demo.gif" alt="Logo"></a>
+ <img width=291px height=241px src="/.github/docs/media/demo.gif" alt="Logo"></a>
 </p>
 
 Created this simple file uploader to solve a problem I was having with free to use uploaders available on the internet for sharing a file with my friends and family over the internet. I looked for other open-source solutions and they didn't particularly scratch the right itch for me. I hope if someone else is looking for a simple (barebones) file share application to self-host, they can relax knowing that this exists and can be used simply with docker-compose on their machines/home servers.
