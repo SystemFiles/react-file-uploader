@@ -28,8 +28,7 @@ module.exports = {
 	uploader      : multer({
 		storage : storage,
 		limits  : {
-			fileSize  : MAX_SIZE_MB * 1000 * 1000,
-			fieldSize : MAX_SIZE_MB * 1000 * 1000
+			fileSize : MAX_SIZE_MB * 1024 * 1024
 		}
 	})
 }

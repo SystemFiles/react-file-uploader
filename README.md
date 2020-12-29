@@ -1,14 +1,46 @@
-# File Uploader
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=400px height=200px src="/.github/docs/media/logo.png" alt="Logo"></a>
+</p>
 
-A simple barebones file sharing app to deploy with docker-compose, kubernetes, or simply docker run.
+<h3 align="center">Fullstack File Uploader</h3>
+
+<div align="center">
+
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/systemfiles/fullstack-file-share.svg)](https://github.com/systemfiles/fullstack-file-share/issues)
+![Lint Node](https://github.com/SystemFiles/fullstack-file-share/workflows/Lint%20Node/badge.svg)
+![CodeQL](https://github.com/SystemFiles/fullstack-file-share/workflows/CodeQL/badge.svg)
+![Build and Push Docker](https://github.com/SystemFiles/fullstack-file-share/workflows/Build%20and%20Push%20Docker/badge.svg)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/systemfiles/fullstack-file-share.svg)](https://github.com/systemfiles/fullstack-file-share/pulls)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+
+</div>
 
 ---
 
-## ℹ️ About
+<p align="center"> A simple barebones file sharing app to deploy with docker-compose, kubernetes, or simply docker run.
+    <br> 
+</p>
+
+## 📝 Table of Contents
+
+- [About](#about)
+- [CHANGELOG](/CHANGELOG.md)
+- [Config Options](#config)
+- [Usage](#usage)
+- [Authors](#authors)
+
+## ℹ️ About <a name = "about"></a>
+
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=360px height=300px src="/.github/docs/media/demo.gif" alt="Logo"></a>
+</p>
 
 Created this simple file uploader to solve a problem I was having with free to use uploaders available on the internet for sharing a file with my friends and family over the internet. I looked for other open-source solutions and they didn't particularly scratch the right itch for me. I hope if someone else is looking for a simple (barebones) file share application to self-host, they can relax knowing that this exists and can be used simply with docker-compose on their machines/home servers.
 
-## 🔧 Available Configurations
+## 🔧 Available Configurations <a name = "config"></a>
 
 - `PORT`: The port. Generally you should not need to change this
 - `DEFAULT_DIR`: Where to store uploaded files
@@ -17,7 +49,7 @@ Created this simple file uploader to solve a problem I was having with free to u
 - `CLEAN_ENABLED`: Whether or not to clean the upload directory on an interval.
 - `CLEAN_DIR_INTERVAL`: iff `CLEAN_ENABLED` is set to `true`, then you can specify a number of days between each file wipe.
 
-## 🚀 Usage
+## 🚀 Usage <a name = "usage"></a>
 
 To use this app with docker-compose, simply update the `FILES_ENDPOINT` variable in `client/src/config/index.js` to include your server domain name.
 
@@ -94,6 +126,6 @@ docker run -d \
 
 That's it. If you experience any issues, please feel free to open an issue on GitHub and I will try my best to fix it.
 
-## ✍️ Author
+## ✍️ Author <a name = "authors"></a>
 
 [Ben Sykes (SystemFiles)](https://sykesdev.ca)
