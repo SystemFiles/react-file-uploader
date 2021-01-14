@@ -54,8 +54,13 @@ Created this simple file uploader to solve a problem I was having with free to u
 ## 🚀 Usage <a name = "usage"></a>
 
 To use this app with docker-compose, simply update the `FILES_ENDPOINT` variable in `client/src/config/index.js` to include your server domain name.
+This is required since we are using a client rendered site.
 
-> For example: `http://localhost/api/files` would turn into `http://uploader.sykesdev.ca/api/files` if I was hosting on `uploader.sykesdev.ca`.
+```js
+// Example client/src/config/index.js
+export const FILES_ENDPOINT = 'http://<your-domain-name>/api/files'
+
+```
 
 ### Development Specific (Compose)
 
@@ -69,7 +74,7 @@ docker-compose -f docker-compose.dev.yml up -d
 
 ### Production Environment (Compose) (Recommended)
 
-Modify settings (on `server` service in `docker-compose.yml`) using environment variables (**see available options above**)
+Modify settings (on `server` service in `docker-compose.yml`) using environment variables [(**see available options above**)](#config)
 
 After your modifications, run the `docker-compose.yml` file inside of the project directory.
 
