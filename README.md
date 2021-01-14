@@ -53,6 +53,10 @@ Created this simple file uploader to solve a problem I was having with free to u
 
 ## 🚀 Usage <a name = "usage"></a>
 
+Most of the setup is pretty standard. Please read through this document first, however, if you experience any issues with your setup.
+
+### A Quick Caveat
+
 To use this app with docker-compose, simply update the `FILES_ENDPOINT` variable in `client/src/config/index.js` to include your server domain name.
 This is required since we are using a client rendered site.
 
