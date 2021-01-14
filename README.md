@@ -42,18 +42,29 @@ Created this simple file uploader to solve a problem I was having with free to u
 
 ## 🔧 Available Configurations <a name = "config"></a>
 
-- `PORT`: The port. Generally you should not need to change this
-- `DEFAULT_DIR`: Where to store uploaded files
-- `MAX_FILES`: Maximum files that can be uploaded
-- `MAX_SIZE_MB`: Maximum individual file size that can be uploaded (**Note**: If you make this greater than 2048MB, you must also modify the `client_max_body_size` in the nginx.conf in `nginx/nginx.conf`)
-- `CLEAN_ENABLED`: Whether or not to clean the upload directory on an interval.
-- `CLEAN_DIR_INTERVAL`: iff `CLEAN_ENABLED` is set to `true`, then you can specify a number of days between each file wipe.
+| Option               	| Description                                                                                                                                                              	| Default        	| Required 	|
+|----------------------	|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|----------------	|----------	|
+| `API_PORT`           	| Defines the port for the backend service to listen on.                                                                                                                   	| `5000`         	| Y        	|
+| `DEFAULT_DIR`        	| Default location to store client uploaded files on the system                                                                                                            	| `/media/files` 	| Y        	|
+| `MAX_FILES`          	| Maximum number of files that can be uploaded in a single request                                                                                                         	| `6`            	| N        	|
+| `MAX_SIZE_MB`        	| Maximum file size for any file being uploaded to the storage solution (note: future editions of this software will include cloud blob storage as an option)              	| `2048` (in MB) 	| N        	|
+| `CLEAN_ENABLED`      	| Whether or not to empty the upload directory on an interval. (use this if you plan on only storing files temporarily for short periods **or** if you have limited space) 	| `false`        	| N        	|
+| `CLEAN_DIR_INTERVAL` 	| iff `CLEAN_ENABLED` is `enabled`, then you can specify a number of days between each directory cleaning.                                                                 	| `7`            	| N        	|
 
 ## 🚀 Usage <a name = "usage"></a>
 
-To use this app with docker-compose, simply update the `FILES_ENDPOINT` variable in `client/src/config/index.js` to include your server domain name.
+Most of the setup is pretty standard. Please read through this document first, however, if you experience any issues with your setup.
 
-> For example: `http://localhost/api/files` would turn into `http://uploader.sykesdev.ca/api/files` if I was hosting on sykesdev.ca.
+### A Quick Caveat
+
+To use this app with docker-compose, simply update the `FILES_ENDPOINT` variable in `client/src/config/index.js` to include your server domain name.
+This is required since we are using a client rendered site.
+
+```js
+// Example client/src/config/index.js
+export const FILES_ENDPOINT = 'http://<your-domain-name>/api/files'
+
+```
 
 ### Development Specific (Compose)
 
@@ -67,7 +78,7 @@ docker-compose -f docker-compose.dev.yml up -d
 
 ### Production Environment (Compose) (Recommended)
 
-Modify settings (on `server` service in `docker-compose.yml`) using environment variables (**see available options above**)
+Modify settings (on `server` service in `docker-compose.yml`) using environment variables [(**see available options above**)](#config)
 
 After your modifications, run the `docker-compose.yml` file inside of the project directory.
 

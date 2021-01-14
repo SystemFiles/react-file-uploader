@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 const { api } = require('./api')
-const { PORT, DEFAULT_DIR, CLEAN_DIR_INTERVAL, CLEAN_ENABLED } = require('./config')
+const { API_PORT, DEFAULT_DIR, CLEAN_DIR_INTERVAL, CLEAN_ENABLED } = require('./config')
 
 // Initiated auto remove service
 if (CLEAN_ENABLED) {
@@ -17,4 +17,4 @@ if (CLEAN_ENABLED) {
 }
 
 // Start the server
-api.listen(PORT, () => console.log(`File Uploader API Server is running on port ${PORT}`))
+api.listen(API_PORT, () => console.log(`File Uploader API Server is running on port ${API_PORT}`))
